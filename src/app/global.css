@@ -68,7 +68,13 @@
 }
 
 main, nav {
-  @apply max-w-6xl mx-auto my-12;
+  @apply max-w-full mx-auto my-12;
+}
+header{
+    @apply h-3/6 mx-auto text-center;
+}
+div{
+    @apply w-5/6 mx-auto;
 }
 p {
   @apply mt-2;

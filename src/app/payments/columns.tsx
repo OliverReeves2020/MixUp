@@ -24,6 +24,11 @@ export type Payment = {
     email: string
 }
 
+
+
+
+
+
 export const columns: ColumnDef<Payment>[] = [
 
     {
