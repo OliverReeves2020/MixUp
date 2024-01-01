@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+# MixUp
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to MixUp, This application allows users to import Spotify playlists and remix/reorder them based on values such as BPM (Beats Per Minute). It's a fun and creative way to customize your music listening experience.
 
-## Available Scripts
+## Motivation
 
-In the project directory, you can run:
+I have a deep passion for music, and my extensive playlists reflect my diverse taste in musical genres. However, during my workouts, I frequently encounter the challenge of tracks with vastly different styles or energy levels, prompting me to constantly skip through songs. Given my inherently lazy nature, I sought to devise a solution. My motivation for this project stems from the desire to create a tool that automatically generates personalized "mixtapes." These mixtapes will be curated based on similar audio features and ordered according to specific preferences, such as arranging tracks from high to low BPM for a soothing "cool down mix" or in high to low intervals for an invigorating "HIIT mix." Additionally, the system will consider the genre of music to ensure a seamless and enjoyable workout experience. This project is driven by my commitment to streamline and enhance the harmony between my music and fitness routines.
 
-### `npm start`
+## Screenshots
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## How to use?
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tech/framework used
+Built with:
+- [React.js](https://react.dev)
+- [Shadcnui](https://ui.shadcn.com)
+- [Tailwindcss](https://tailwindcss.com/docs/installation)
+- [Tanstack Table](https://tanstack.com)
 
-### `npm test`
+## Development
+to install and run
+```shell
+npm start 
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Contributing
 
-### `npm run build`
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Please make sure to update tests as appropriate.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## License
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[MIT](https://choosealicense.com/licenses/mit/)
