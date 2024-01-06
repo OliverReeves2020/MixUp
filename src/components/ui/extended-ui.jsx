@@ -1,4 +1,4 @@
-import React, {forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -14,6 +14,8 @@ import {Button} from "./button";
 import {ScrollArea} from "./scroll-area";
 import {fetchPlaylists} from "../../app/spotify/SpotifyPlaylists";
 import {Checkbox} from "./checkbox";
+import {useStore} from "@tanstack/react-store";
+import {store} from "../../store";
 
 
 const LogoutButton = ({action}) => {
@@ -36,29 +38,48 @@ const LogoutButton = ({action}) => {
     );
 }
 
+//store.setState(() => {
+//             return { refreshPlaylist: date.getHours().toString()+date.getMinutes().toString()};
+//         });
 
 
-const Playlist = ({name,img,number}) => {
+//TODO improve checkbox with use of forms to make cleaner
 
-    const [checkboxState, setCheckboxState] = useState([]);
-    const handleCheckboxChange = (name, checked) => {
-        setCheckboxState((prev) =>
-            checked ? [...prev, name] : prev.filter((value) => value !== name)
+const Playlist = ({id,name, img, number}) => {
+    let playlistDatatemp;
+    playlistDatatemp = useStore(store, store => store.selectedPlaylists)
 
-        );console.log(checkboxState);
+    const handleCheckboxChange = (key, checked) => {
+
+        if (checked) {
+
+            store.setState(() => {
+                if (playlistDatatemp == null) {
+                    return {selectedPlaylists: [key]};
+                } else {
+                    return {selectedPlaylists: [...playlistDatatemp, key]};
+                }
+            });
+        } else {
+            store.setState(() => {
+                return {selectedPlaylists: playlistDatatemp.filter((value) => value !== key)}
+            });
+        }
+
     };
 
 
     return (
         <div className="flex items-center w-52 h-32 snap-end">
-            <div className="aspect-square w-1/2 rounded-full border-2 border-rose-500 overflow-clip"><img src={img}/></div>
+            <div className="aspect-square w-1/2 rounded-full border-2 border-rose-500 overflow-clip"><img src={img}/>
+            </div>
             <div className="m-2 h-max w-40 truncate">
                 <h6>{name}</h6>
                 <p>{number}</p>
             </div>
-            <div className="w-1/5"><Checkbox id={name}
-                                             checked={checkboxState.includes(name)}
-                                             onCheckedChange={(checked) => handleCheckboxChange(name, checked)}
+            <div className="w-1/5"><Checkbox id={id}
+                                             checked={playlistDatatemp ? playlistDatatemp.includes(id) : false}
+                                             onCheckedChange={(checked) => handleCheckboxChange(id, checked)}
             ></Checkbox></div>
 
         </div>
@@ -66,45 +87,45 @@ const Playlist = ({name,img,number}) => {
 }
 
 
+const PlaylistsSelection = (props, ref) => {
+    let refresh;
+    refresh = useStore(store, store => store.refreshPlaylist)
 
-const PlaylistsSelection=forwardRef((props,ref)=>{
-
-    useImperativeHandle(ref,()=>{
-        return{
-          populateFunc:populateFunc,
-        };
-    })
 
     const [playlistData, setPlaylistData] = useState([]);
-    const populateFuncRef = useRef(null);
     const populateFunc = async () => {
-        const fetchData = async () => {
-            try {
-                console.log("run");
-                const result = await fetchPlaylists();
-                setPlaylistData(result);
-                console.log("xxx",playlistData);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-
-        fetchData();
+        try {
+            console.log("run");
+            const result = await fetchPlaylists();
+            setPlaylistData(result);
+            console.log("xxx", playlistData);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
     };
 
-    // Expose populateFunc through ref
-    populateFuncRef.current = populateFunc;// Empty dependency array to ensure the effect runs only once on mount
-    return(
+
+    useEffect(() => {
+        if (refresh != null) {
+            console.log(refresh)
+            console.log("refreshing")
+            populateFunc();
+        }
+    }, [refresh])
+
+
+    return (
+
         <ScrollArea className="h-96 ">
-            <div >
+            <div>
                 <h4 className="mb-4 text-sm font-medium leading-none absolute top-0">Playlists</h4>
                 {playlistData.map((tag) => (
-                        <Playlist key={tag.name} name={tag.name} img={tag.images} number={tag.number}></Playlist>
+                    <Playlist key={tag.id} id={tag.id} name={tag.name} img={tag.images} number={tag.number}></Playlist>
                 ))}
             </div>
         </ScrollArea>
     );
-});
+}
 
 
-export {LogoutButton,PlaylistsSelection};
+export {LogoutButton, PlaylistsSelection};

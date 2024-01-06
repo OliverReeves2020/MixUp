@@ -7,9 +7,10 @@ import {Card, CardContent, CardHeader, CardTitle} from "./components/ui/card";
 import DemoPage from "./app/payments/page.tsx";
 import useSpotifyAuthentication from './app/spotify/SpotifyAuth.js'
 import {LogoutButton, PlaylistsSelection} from "./components/ui/extended-ui";
-import {fetchAlbums, fetchPlaylists} from "./app/spotify/SpotifyPlaylists";
+import {fetchPlaylists, fetchSongs} from "./app/spotify/SpotifyPlaylists";
 import {useRef} from "react";
-
+import {store} from "./store";
+import {useStore} from "@tanstack/react-store";
 
 
 function App() {
@@ -22,8 +23,23 @@ function App() {
 
     //const [token, setToken] = useState("")
     const {token, logout} = useSpotifyAuthentication();
-    const childref = useRef();
+    //TODO fix issue with selecting checkbox then refresh cuasing undefined
+    const handlePlaylistRefresh = () => {
+        let date = new Date();
+        date = date.getHours().toString() + date.getMinutes().toString()
+        store.setState(() => {
+            return {refreshPlaylist: date};
+        });
+    }
+    let playlistDatatemp;
+    playlistDatatemp = useStore(store, store => store.selectedPlaylists)
+    const test = () => {
 
+        console.log(playlistDatatemp)
+    }
+
+
+    //TODO add import button taking selected songs and display on table
     return (
 
         <main className="bg-background text-foreground">
@@ -31,23 +47,17 @@ function App() {
                 <h1 className={"text-2xl"}>mixup</h1>
             </header>
 
-            <Button onClick={()=>childref.current.populateFunc()}>refresh</Button>
-            <div className="grid grid-cols-3 gap-10">
-               <PlaylistsSelection ref={childref}></PlaylistsSelection>
 
+            <div className="grid grid-cols-3 gap-10">
+                <PlaylistsSelection></PlaylistsSelection>
             </div>
 
+            <Button onClick={handlePlaylistRefresh}>refresh</Button>
+            <Button onClick={test}>test</Button>
+            <Button >import</Button>
 
-
-
-
-
-
-            <div><Button onClick={fetchAlbums}>albums</Button></div>
+            <div><Button onClick={() => fetchSongs(playlistDatatemp)}>songs</Button></div>
             <div><Button onClick={fetchPlaylists}>playlists</Button></div>
-
-
-
 
 
             {!token ?
@@ -56,9 +66,6 @@ function App() {
                         to Spotify</a></Button>
                 :
                 <LogoutButton action={logout}/>}
-
-
-
 
 
             <Card>
